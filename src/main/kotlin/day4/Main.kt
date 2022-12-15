@@ -13,8 +13,8 @@ fun main(args: Array<String>) {
     val cleaningAssignments = CleaningAssignmentParser(elfAssignmentStr = startStr)
     println("Parsed Assignments: ${cleaningAssignments.elfAssignments}")
     val cleaningRangeValidator = CleaningRangeValidator(elfAssignments = cleaningAssignments.elfAssignments)
-    val overlappingRanges = cleaningRangeValidator.findOverlapping()
-    println("Overlapping Ranges: $overlappingRanges")
-    println("Total Count Overlapping: ${overlappingRanges.size}")
+    val encompassedRanges = cleaningRangeValidator.findEncompassing()
+    println("Encompassed Ranges: $encompassedRanges")
+    println("Total Count Encompassing: ${encompassedRanges.size}")
 
 }
