@@ -24,7 +24,7 @@ fun main(args: Array<String>) {
         elfStackArrangement = movementParser.elfStackArrangement
     )
 
-    val movementResult = elfContainerMover.processInventoryMovements()
+    val movementResult = elfContainerMover.processInventorySingleStack()
     val topCrates = elfContainerMover.findTopCrates(processedStackArrangement = movementResult)
     println("Movement Result: $movementResult")
     println("Top Crates: $topCrates")

@@ -2,30 +2,38 @@ package day5
 
 class ElfContainerMover(val elfStackArrangement: StackArrangement, val elfMovementOperations: List<MovementOperation>){
 
-    fun processInventoryMovements(): StackArrangement {
-        val elfMovementState = elfStackArrangement
-            .map{ it.key to it.value.toMutableList() }
-            .toMap()
-            .toMutableMap()
+    private fun StackArrangement.makeMutableMap() = this
+        .map{ it.key to it.value.toMutableList() }
+        .toMap()
+        .toMutableMap()
+
+    fun processInventorySingleStack(): StackArrangement {
+        val elfMovementState = elfStackArrangement.makeMutableMap()
 
         elfMovementOperations.forEach { crateMovement ->
-            println("-------")
-            println("MovementOP = $crateMovement")
-            println("StackArrangementBefore = $elfMovementState")
             val crateCount = crateMovement.first
             val moveFromStack = crateMovement.second.first
             val moveToStack = crateMovement.second.second
             repeat(crateCount) {
-                //println("OP #$it \n State: $elfMovementState")
-                val topCrate = elfMovementState[moveFromStack]?.lastOrNull()
-                if(topCrate == null) println("ERROR ON $it") else {
-                    elfMovementState[moveFromStack]?.removeLast()
-                    elfMovementState[moveToStack]?.add(topCrate)
-                }
+                val topCrate = elfMovementState[moveFromStack]?.lastOrNull() ?: return@repeat
+                elfMovementState[moveFromStack]?.removeLast()
+                elfMovementState[moveToStack]?.add(topCrate)
             }
-            println("StackArrangementAfter = $elfMovementState")
         }
-        println("-------")
+        return elfMovementState.toMap()
+    }
+
+    fun processInventoryOrderedMultiStack(): StackArrangement {
+        val elfMovementState = elfStackArrangement.makeMutableMap()
+
+        elfMovementOperations.forEach { crateMovement ->
+            val crateCount = crateMovement.first
+            val moveFromStack = crateMovement.second.first
+            val moveToStack = crateMovement.second.second
+            val topCrates = elfMovementState[moveFromStack]!!.takeLast(crateCount)
+            elfMovementState[moveFromStack] = elfMovementState[moveFromStack]!!.dropLast(crateCount).toMutableList()
+            elfMovementState[moveToStack]!!.addAll(topCrates)
+        }
         return elfMovementState.toMap()
     }
 

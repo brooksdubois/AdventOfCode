@@ -24,6 +24,7 @@ class StackMovementParser(val inputStr: String) {
     private fun fixStartEndWhiteSpace(): List<String> = inputStr.lines()
         .dropWhile { it.isEmpty() }
         .dropLastWhile { it.isEmpty() }
+    private fun String.takeFirstInt() = this.toCharArray().takeWhile { it.isDigit() }.joinToString("").toInt()
 
     private fun List<String>.divideOnNewLine(): Pair<List<String>, List<String>> {
         val splitIndex = this.indexOf("")
@@ -54,7 +55,6 @@ class StackMovementParser(val inputStr: String) {
         }.toMap()
     }
 
-    private fun String.takeFirstInt() = this.toCharArray().takeWhile { it.isDigit() }.joinToString("").toInt()
     private fun processInputMovementMap(input: List<String>): List<MovementOperation>
         = input.map { movementString ->
             var tempString = movementString.replace("move ", "")
