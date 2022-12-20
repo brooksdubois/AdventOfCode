@@ -1,12 +1,11 @@
 package day5
 
-typealias StackMovement = Int
 typealias ContainerIndex = Int
 typealias ContainerCount = Int
 typealias ContainerName = Char
 typealias StackArrangement = Map<ContainerIndex, List<ContainerName>>
-typealias MovementPair = Pair<ContainerIndex, StackMovement>
-typealias MovementOperation = Pair<ContainerCount, MovementPair>
+
+data class MovementOperation(val count: ContainerCount, val fromIndex: ContainerIndex, val toIndex: ContainerIndex)
 
 class StackMovementParser(val inputStr: String) {
 
@@ -24,7 +23,6 @@ class StackMovementParser(val inputStr: String) {
     private fun fixStartEndWhiteSpace(): List<String> = inputStr.lines()
         .dropWhile { it.isEmpty() }
         .dropLastWhile { it.isEmpty() }
-    private fun String.takeFirstInt() = this.toCharArray().takeWhile { it.isDigit() }.joinToString("").toInt()
 
     private fun List<String>.divideOnNewLine(): Pair<List<String>, List<String>> {
         val splitIndex = this.indexOf("")
@@ -55,6 +53,11 @@ class StackMovementParser(val inputStr: String) {
         }.toMap()
     }
 
+    private fun String.takeFirstInt() = this.toCharArray()
+        .takeWhile { it.isDigit() }
+        .joinToString("")
+        .toInt()
+
     private fun processInputMovementMap(input: List<String>): List<MovementOperation>
         = input.map { movementString ->
             var tempString = movementString.replace("move ", "")
@@ -63,6 +66,6 @@ class StackMovementParser(val inputStr: String) {
             val fromValue = tempString.takeFirstInt()
             tempString = tempString.replace("$fromValue to ", "")
             val toValue = tempString.takeFirstInt()
-            return@map Pair(first = containerCount, second = Pair(first = fromValue, second = toValue))
+            return@map MovementOperation(count = containerCount, fromIndex = fromValue, toIndex = toValue)
         }
 }

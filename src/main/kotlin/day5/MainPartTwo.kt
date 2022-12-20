@@ -1,29 +1,11 @@
 package day5
 
 fun main(args: Array<String>) {
-    /* val startStr = """
-             [D]
-         [N] [C]
-         [Z] [M] [P]
-          1   2   3
-
-         move 1 from 2 to 1
-         move 3 from 1 to 3
-         move 2 from 2 to 1
-         move 1 from 1 to 2
-     """.trimIndent()*/
-    val startStr = realData
-
-    val movementParser = StackMovementParser(inputStr = startStr)
-
-    println("Stack Arrangement: ${movementParser.elfStackArrangement}")
-    println("Movement Pairs: ${movementParser.elfMovementOperations}")
-
+    val movementParser = StackMovementParser(inputStr = realData)
     val elfContainerMover = ElfContainerMover(
-        elfMovementOperations = movementParser.elfMovementOperations,
-        elfStackArrangement = movementParser.elfStackArrangement
+        movementOperations = movementParser.elfMovementOperations,
+        stackArrangement = movementParser.elfStackArrangement
     )
-
     val movementResult = elfContainerMover.processInventoryOrderedMultiStack()
     val topCrates = elfContainerMover.findTopCrates(processedStackArrangement = movementResult)
     println("Movement Result: $movementResult")

@@ -17,11 +17,11 @@ fun main(args: Array<String>) {
     val movementParser = StackMovementParser(inputStr = startStr)
 
     println("Stack Arrangement: ${movementParser.elfStackArrangement}")
-    println("Movement Pairs: ${movementParser.elfMovementOperations}")
+    println("Ops: ${movementParser.elfMovementOperations}")
 
     val elfContainerMover = ElfContainerMover(
-        elfMovementOperations = movementParser.elfMovementOperations,
-        elfStackArrangement = movementParser.elfStackArrangement
+        movementOperations = movementParser.elfMovementOperations,
+        stackArrangement = movementParser.elfStackArrangement
     )
 
     val movementResult = elfContainerMover.processInventorySingleStack()
