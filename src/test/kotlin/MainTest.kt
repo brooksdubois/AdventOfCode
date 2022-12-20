@@ -1,14 +1,12 @@
 import org.junit.jupiter.api.Test
-
-
+import kotlin.test.assertTrue
 
 class MainTest {
 
     @Test
-    fun `it calculates a total`() {
+    fun `it runs a test`() {
 
-
-
+        assertTrue { true }
     }
 
 }

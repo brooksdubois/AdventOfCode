@@ -33,16 +33,14 @@ class StackMovementParser(val inputStr: String) {
 
     private fun processInputArrangement(input: List<String>):Map<Int, List<Char>> {
         val columnDesignators = input.last()
-            .filterNot {  it.isWhitespace() }
+            .filterNot { it.isWhitespace() }
             .toCharArray()
             .map { it.digitToInt() }
             .toList()
 
         val columnDataNoDesignators = input.dropLast(1)
         val columnsNormalized = columnDataNoDesignators.map { column ->
-            return@map column.filterIndexed{ index, _ ->
-                return@filterIndexed index % 4 == 1
-            }
+            column.filterIndexed{ index, _ -> index % 4 == 1 }
         }
         return columnDesignators.map { columnDesignator ->
             val columnValues = columnsNormalized.map {

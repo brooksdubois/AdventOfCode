@@ -16,8 +16,8 @@ class RPSGameParser(
     fun processGamesStraightUp(): List<Int> = startStr
         .lines()
         .toList()
-        .map{ gameValues: String ->
-            val gameValues = gameValues.parseLine()
+        .map{
+            val gameValues = it.parseLine()
             val opponent: RPS = rulesOpponent.convertToValue(gameValues.first())
             val player: RPS = rulesPlayer!!.convertToValue(gameValues.last())
             val rpsGame = RPSGameStraightUp(player = player, opponent = opponent)
@@ -27,8 +27,8 @@ class RPSGameParser(
     fun processGamesWinFinder(): List<Int> = startStr
         .lines()
         .toList()
-        .map{ gameValues: String ->
-            val gameValues = gameValues.parseLine()
+        .map{
+            val gameValues = it.parseLine()
             val opponent: RPS = rulesOpponent.convertToValue(gameValues.first())
             val outcome: Outcome = outcomeRules!!.convertToValue(gameValues.last())
             val rpsGame = RPSGameWinFinder(opponent = opponent, result = outcome)

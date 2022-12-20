@@ -27,5 +27,5 @@ ___
 
 ___
 
-#### Feel free to reach out if you have any questions! 
+#### Feel free to reach out in the discussions section if you have any questions! 
  

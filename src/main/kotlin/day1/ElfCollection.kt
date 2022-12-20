@@ -1,15 +1,15 @@
 package day1
 typealias inputElvesStr = String
-class ElfCollection {
+class ElfCollection(rawStr: inputElvesStr) {
     val elves: List<ElfAdder>
 
-    constructor(rawStr: inputElvesStr) {
+    init {
         this.elves = rawStr.convertToList()
     }
 
     private fun String.convertToList(): List<ElfAdder> {
         var tempElf = ElfAdder()
-        var tempElfList = mutableListOf<ElfAdder>()
+        val tempElfList = mutableListOf<ElfAdder>()
         this.lines().toList().forEach{ it ->
             if(it.isEmpty()){
                 tempElfList.add(tempElf)
@@ -23,7 +23,9 @@ class ElfCollection {
 
     fun findMax(): Int = this.elves.maxOf { it.findTotal() }
 
-    fun findTopThree() = this.elves.sortedBy { it.findTotal() }.takeLast(3)
+    private fun findTopThree() = this.elves
+        .sortedBy { it.findTotal() }
+        .takeLast(3)
 
     fun findTopThreeTotal() = this.findTopThree()
         .fold(0){ acc, it -> acc + it.findTotal() }

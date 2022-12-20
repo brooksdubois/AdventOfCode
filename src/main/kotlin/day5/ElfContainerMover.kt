@@ -12,8 +12,7 @@ class ElfContainerMover(val stackArrangement: StackArrangement, val movementOper
 
         movementOperations.forEach { crateMovement ->
             repeat(crateMovement.count) {
-                val topCrate = elfMovementState[crateMovement.fromIndex]?.lastOrNull()
-                    ?: return@repeat //shouldn't be reached
+                val topCrate = elfMovementState[crateMovement.fromIndex]?.lastOrNull() ?: return@repeat
                 elfMovementState[crateMovement.fromIndex]?.removeLast()
                 elfMovementState[crateMovement.toIndex]?.add(topCrate)
             }
@@ -25,11 +24,9 @@ class ElfContainerMover(val stackArrangement: StackArrangement, val movementOper
         val elfMovementState = stackArrangement.makeMutableMap()
 
         movementOperations.forEach { crateMovement ->
-            val topCrates = elfMovementState[crateMovement.fromIndex]
-                ?.takeLast(crateMovement.count) ?: return@forEach
-            val newFromCrates = elfMovementState[crateMovement.fromIndex]
-                ?.dropLast(crateMovement.count)?.toMutableList()
-            elfMovementState[crateMovement.fromIndex] = newFromCrates ?: mutableListOf()
+            val topCrates = elfMovementState[crateMovement.fromIndex]?.takeLast(crateMovement.count) ?: return@forEach
+            val newFromCrates = elfMovementState[crateMovement.fromIndex]?.dropLast(crateMovement.count)
+            elfMovementState[crateMovement.fromIndex] = newFromCrates?.toMutableList() ?: mutableListOf()
             elfMovementState[crateMovement.toIndex]?.addAll(topCrates)
         }
         return elfMovementState.toMap()
