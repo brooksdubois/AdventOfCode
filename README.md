@@ -22,8 +22,8 @@ ___
 #### *Notes:*
   - I'm intending for each day's solution to be entirely standalone so there is definitely cross-package duplication
   - Part 1 and part 2 will share most of the code but have seperately runnable `main()`'s (should run fine in IntelliJ)
-  - While I am a huge fan of TDD in the workplace, I'm depending mainly on the debugger and simple print statements for validations.
-    - *I may unit test this code a bit on some solutions in the future, as needed, or if I decide to document anything*
+  - While I am a huge fan of TDD in the workplace, I depend mainly on the debugger and simple print statements for validations.
+    - *I will use TDD workflow as I decide to so there may be tests for some challenges*
 
 ___
 
