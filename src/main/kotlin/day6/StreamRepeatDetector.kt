@@ -3,10 +3,9 @@ package day6
 typealias RepeatableStream = String
 typealias FirstMarkerIdx = Int
 
-const val START_MSG_LENGTH = 4
 const val NOT_FOUND_INDEX = -1
 
-class StreamRepeatDetector() {
+class StreamRepeatDetector(private val START_MSG_LENGTH:Int = 4) {
     private fun String.isAllUniqueChars() = this.toCharArray().toSet().size == this.length
 
     fun processStream(inputSequence: RepeatableStream): FirstMarkerIdx {
