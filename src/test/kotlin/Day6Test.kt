@@ -1,6 +1,7 @@
 import day6.StreamRepeatDetector
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class Day6Test {
@@ -14,7 +15,10 @@ class Day6Test {
 
     @Test
     fun `it detects no repeats for a short stream of 4 chars`() {
-        assertTrue { true }
+        val initialStr = "abcd"
+        val result = repeatDetector.processStream(inputSequence = initialStr)
+        val expectedFirstMarkerIndex = -1
+        assertEquals(expected = expectedFirstMarkerIndex, actual = result)
     }
 
     @Test
@@ -22,7 +26,7 @@ class Day6Test {
         val initialStr = "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
         val result = repeatDetector.processStream(inputSequence = initialStr)
         val expectedFirstMarkerIndex = 7
-        assertTrue { expectedFirstMarkerIndex == result }
+        assertEquals(expected = expectedFirstMarkerIndex, actual = result)
     }
 
     @Test
@@ -58,3 +62,11 @@ class Day6Test {
     }
 
 }
+
+/*
+it detects the first marker after character 7 for sequence mjqjpqmgbljsphdztnvjfqwrcgsmlb
+it detects the first marker after character 5 for sequence bvwbjplbgvbhsrlpgdmjqwftvncz
+it detects the first marker after character 6 for sequence nppdvjthqldpwncqszvftbrmjlhg
+it detects the first marker after character 10 for sequence nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg
+it detects the first marker after character 11 for sequence zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw
+ */
