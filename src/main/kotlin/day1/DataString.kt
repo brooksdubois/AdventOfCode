@@ -1,7 +1,5 @@
 package day1
 
-
-
 const val realData = """4514
 8009
 6703

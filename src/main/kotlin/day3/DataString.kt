@@ -1,6 +1,6 @@
 package day3
 
-val realData = """vGFhvGvvSdfwqhqvmCPnlFPnCNPcCFcWcr
+const val realData = """vGFhvGvvSdfwqhqvmCPnlFPnCNPcCFcWcr
 ZbWZDMgsTHsrNNLJcJnsJl
 HbBWQgZVZZBzbgZphwjqpmmVfdGmjG
 vvCJLGnthChvtrvCCnRbTRqRPRBtbTRfPRRl
@@ -299,4 +299,4 @@ nvBvHpBppnvPPnJTBWLJVMwVfWJfCbfWgW
 hsHHpBsvRTHpsPszTBTTsRTslGqGqlcqlScnqmhZmmZSZSjl
 DddBHCmfWCBTDBHTHfMpzhzpJJMJsFrGrz
 tPVPmbnttjPnZvSvSbnmZPZPNpNGMpJNzzNrGJpvhsshMpFs
-mwnZcbmmStbVtVjbZVlcLTBlcLCRHRDWCWWW""".trimIndent()
+mwnZcbmmStbVtVjbZVlcLTBlcLCRHRDWCWWW"""

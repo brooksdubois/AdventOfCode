@@ -1,6 +1,6 @@
 package day5
 
-val realData = """
+const val realData = """
             [J] [Z] [G]            
             [Z] [T] [S] [P] [R]    
 [R]         [Q] [V] [B] [G] [J]    
