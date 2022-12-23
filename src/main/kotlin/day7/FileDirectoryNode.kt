@@ -1,7 +1,5 @@
 package day7
 
-import java.util.Random
-
 typealias FileSize = Long
 typealias FileName = String
 typealias FileHash = Int

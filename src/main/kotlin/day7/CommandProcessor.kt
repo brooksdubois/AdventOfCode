@@ -24,8 +24,6 @@ enum class OperatingCommand(val strValue: ReservedKeyword) {
 typealias ReservedKeyword = String
 typealias CommandInput = String?
 typealias CommandOutput = MutableList<String>?
-typealias Command = Pair<ReservedKeyword, CommandInput>
-typealias Operation = Pair<Command?, CommandOutput>
 
 data class CommandLogEntry(
     val command: OperatingCommand,

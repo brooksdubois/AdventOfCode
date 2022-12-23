@@ -3,9 +3,9 @@ package day7
 class FileTreeProcessor(commandEntries: List<CommandLogEntry>? = null){
 
     private lateinit var commandLogs: List<CommandLogEntry>
-    init {
-        commandEntries?.also { commandLogs = it }
-    }
+
+    init {  commandEntries?.also { commandLogs = it }  }
+
     private fun String.takeLeftHalf() = this.takeWhile { !it.isWhitespace() }
 
     private fun String.takeRightHalf() = this.takeLastWhile { !it.isWhitespace() }
@@ -84,4 +84,19 @@ class FileTreeProcessor(commandEntries: List<CommandLogEntry>? = null){
     fun findSumSizesBelowThreshold(threshold: Int = 100000, directorySizeMap: Map<FileHash, FileSize>)
         = directorySizeMap.values.filter{ it <= threshold }.sum()
 
+    fun determineBestDeletionCandidate(
+        totalDiskSize: FileSize = 70000000,
+        freeSpaceRequired: FileSize = 30000000,
+        directorySizeMap: Map<FileHash, FileSize>,
+        fileTree: FileDirectoryTree
+    ): FileSize {
+        val diskSizeMax = totalDiskSize - freeSpaceRequired
+        //pulls out the top most size occupied on disk
+        val totalFileSizes = directorySizeMap[fileTree.fileHash]!!
+        val requiredDeletionSize = totalFileSizes - diskSizeMax
+        val candidateFiles = directorySizeMap.entries.filter { entry ->
+            entry.value > requiredDeletionSize
+        }
+        return candidateFiles.minOf { it.value }
+    }
 }
