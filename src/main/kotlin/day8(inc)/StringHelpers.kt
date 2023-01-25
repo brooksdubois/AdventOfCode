@@ -1,4 +1,4 @@
-package day8
+package `day8(inc)`
 
 import java.io.File
 import java.io.FileInputStream

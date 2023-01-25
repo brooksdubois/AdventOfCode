@@ -1,4 +1,4 @@
-package day8
+package `day8(inc)`
 
 const val SAMPLE_PATH = "src/main/kotlin/day8/SampleData.txt"
 
