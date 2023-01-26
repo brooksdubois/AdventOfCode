@@ -1,14 +1,14 @@
 package day8
 
-enum class FromSide { TOP, LEFT, RIGHT, BOTTOM }
-
 typealias TreetopHeight = Int
+typealias VisibilityScore = Int
 data class TreetopCoordinates(val x:Int, val y: Int)
 typealias Treetops = List<TreetopAnalysis>
 data class TreetopAnalysis(
     var visible: Boolean?,
     val height: TreetopHeight,
-    val coords: TreetopCoordinates
+    val coords: TreetopCoordinates,
+    var visibleScore: VisibilityScore? = null
 )
 
 class TreetopHeightListParser(treeRawData: String ) {
@@ -29,13 +29,13 @@ class TreetopHeightListParser(treeRawData: String ) {
 
                 TreetopAnalysis(
                     height = treetop, coords = TreetopCoordinates(x = indexX, y = indexY),
-                    visible = if(isEdgePiece) true else null
+                    visible = if(isEdgePiece) true else null, visibleScore = 0
                 )
             }
         }.flatten()
 
     fun processRemainingVisibilities(treetops: Treetops) {
-        fun Treetops.withVisibilityUnset() = this.filter { it.visible == null}
+
         fun isVisibleFromList(list: List<Int>, position: Int, height: TreetopHeight): Boolean {
             val leftList = list.take(position)
             val rightList = list.drop(position + 1)
@@ -45,17 +45,52 @@ class TreetopHeightListParser(treeRawData: String ) {
             val succeedsOnRight = height > rightMax && !rightList.contains(height)
             return succeedsOnLeft || succeedsOnRight
         }
-        treetops.withVisibilityUnset().forEach { treetop ->
+
+        fun List<Int>.processTotalBeforeDip(): Int {
+            var runningTotal = 1
+            forEachIndexed{ idx, it ->
+                if (idx != size - 1) {
+                    val next = this[idx + 1]
+                    if(next < it) return@processTotalBeforeDip runningTotal
+                    runningTotal += 1
+                    if(idx != 0){
+                        val prev = this[idx - 1]
+                        if(prev == it) runningTotal -= 1
+                    }
+                }
+            }
+            return runningTotal
+        }
+
+        fun findVisibilityScore(row: List<Int>, column:List<Int>, coords: TreetopCoordinates): Int {
+            coords.apply{
+                val leftRow = row.take(x).reversed()
+                val rightRow = row.drop(x + 1)
+                val topColumn = column.take(x).reversed()
+                val bottomColumn = column.drop(x + 1)
+                val leftView = leftRow.processTotalBeforeDip()
+                val rightView = rightRow.processTotalBeforeDip()
+                val topView = topColumn.processTotalBeforeDip()
+                val bottomView = bottomColumn.processTotalBeforeDip()
+                return leftView * rightView * topView * bottomView
+            }
+        }
+
+        treetops.forEach { treetop ->
             treetop.apply {
                 val column = treetops.filter{ it.coords.x == coords.x }.map{ it.height }
                 val row = treetops.filter { it.coords.y == coords.y }.map{ it.height }
-                val visibleInColumn = isVisibleFromList(list = column, position = coords.y, height = height)
-                val visibleInRow = isVisibleFromList(list = row, position = coords.x, height = height )
-                treetop.visible = visibleInRow || visibleInColumn
+                if(visible == null){
+                    val visibleInColumn = isVisibleFromList(list = column, position = coords.y, height = height)
+                    val visibleInRow = isVisibleFromList(list = row, position = coords.x, height = height)
+                    visible = visibleInRow || visibleInColumn
+                }
+                visibleScore = findVisibilityScore(row = row, column = column, coords = coords)
             }
 
         }
     }
 
+    fun toBestVisibilty(treetops: Treetops) = treetops.maxBy { it.visibleScore!! }
     fun toCount(treetops: Treetops) = treetops.filter{ it.visible!! }.size
 }
