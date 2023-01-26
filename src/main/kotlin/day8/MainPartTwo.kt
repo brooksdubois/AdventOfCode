@@ -1,4 +1,4 @@
-package `day8(inc)`
+package day8
 
 fun main(args: Array<String>) {
     val startStr = """"""
