@@ -11,6 +11,11 @@ const val sampleData = """
 
 fun main(args: Array<String>) {
     val treetopParser = TreetopHeightListParser(treeRawData = sampleData)
-    println(treetopParser.parseTreetops())
+    val treetops = treetopParser.parseTreetops()
+    println("Initial $treetops")
+    treetopParser.processRemainingVisibilities(treetops = treetops)
+    println("Processed values $treetops")
+    val numVisible = treetopParser.toCount(treetops = treetops)
+    println("Count visible $numVisible")
 }
 
